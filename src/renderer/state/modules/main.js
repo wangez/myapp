@@ -3,11 +3,8 @@ const state = {
 }
 
 const mutations = {
-    DECREMENT_MAIN_COUNTER(state) {
-        state.main--
-    },
-    INCREMENT_MAIN_COUNTER(state) {
-        state.main++
+    register: function (state, data) {
+        console.log(state, data)
     }
 }
 

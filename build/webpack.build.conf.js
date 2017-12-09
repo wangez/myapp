@@ -46,9 +46,18 @@ module.exports = {
         ]
     },
     plugins: [
-        new webpack.NamedModulesPlugin(),
-        new webpack.HotModuleReplacementPlugin(),
+        new webpack.DefinePlugin({
+            'process.env': {
+                NODE_ENV: '"production"'
+            }
+        }),
+        new webpack.optimize.UglifyJsPlugin({
+            compress: {
+                warnings: false
+            }
+        }),
         new HtmlWebpackPlugin({
+            filename: "../views/index.html",
             template: "./src/renderer/index.html"
         })
     ]
