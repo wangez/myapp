@@ -21,7 +21,6 @@
         name: 'app',
         data: function () {
             return {
-                username: null,
                 passworld: null,
                 count: 0
             }
@@ -41,7 +40,6 @@
             }
         },
         mounted: function () {
-            console.log(1111)
             const that = this
             this.$store.commit('main/setWidth', window.getComputedStyle(that.$el, ':before').content.replace(/"/g, ''))
             window.onresize = e => {
@@ -49,15 +47,6 @@
             }
         },
         methods: {
-            submit: function () {
-                this.$store.dispatch('user/register', {username: this.username, passworld: this.passworld})
-            },
-            getUser: function () {
-                this.$store.dispatch('user/getLogined')
-            },
-            logout: function () {
-                this.$store.dispatch('user/logout')
-            }
         },
         components: {
             MainTitle,

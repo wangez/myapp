@@ -5,7 +5,7 @@ import store from './store'
 import axios from 'axios'
 
 //import icon
-import 'vue-awesome/icons/flag'
+import 'vue-awesome/icons/user-circle'
 import 'vue-awesome/icons/user'
 import Icon from 'vue-awesome/components/Icon'
 

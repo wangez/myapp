@@ -1,8 +1,9 @@
 <template>
     <div id="main-title">
-        <span ref="title">welcome</span>
-        <div id="main-title-user" :class="{active: useractive}" @touchstart="tstart" @touchend="tend">
-            <icon name="user"></icon>
+        <span ref="title">welcome{{username}}</span>
+        <div id="main-title-user" :class="{active: useractive}" @click="showlogin" @touchstart="tstart" @touchend="tend">
+            <icon v-if="username" name="user-circle"></icon>
+            <icon v-else name="user"></icon>
         </div>
     </div>
 </template>
@@ -20,8 +21,10 @@
         computed: {
             width: function () {
                 return this.$store.state.main.width
+            },
+            username: function () {
+                return this.$store.state.user.username
             }
-
         },
         mounted: function () {
             this.titleWidth = this.$el.getBoundingClientRect().width
@@ -32,6 +35,14 @@
             },
             tend: function () {
                 this.useractive = false
+                
+            },
+            showlogin: function () {
+                if (this.username === null) {
+                    this.$store.commit('user/changeLogining')
+                } else {
+                    this.$store.dispatch('user/logout')
+                }
             }
         }
     }
@@ -57,10 +68,8 @@
             top: 25px;
             width: 40px;
             height: 40px;
-            color: #fafafa;
-            border: 1px solid #3385ff;
+            color: #3385ff;
             border-radius: 50%;
-            background-color: #3385ff;
 
             svg {
                 position: absolute;
@@ -74,10 +83,11 @@
             }
 
             &:active,
-            &:hover
+            &:hover,
             &.active {
-                color: #3385ff;
-                background-color: #fafafa;
+                border-color: #3385ff;
+                background-color: #3385ff;
+                color: #fafafa;
             }
         }
     }
