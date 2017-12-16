@@ -1,38 +1,67 @@
 <template>
-    <div id="app">
-        <form action="/api/register" method="POST">
-            <input type="text" name="username" v-model="username"/>
-            <input type="text" name="passworld" v-model="passworld"/>
-            <button type="submit" @click.prevent="submit">abaa</button>
-        </form>
+    <div id="app" :style="{backgroundColor: appColor}">
+        <MainTitle />
+        <Login v-if="logining" />
     </div>
 </template>
 
 <script>
+    import MainTitle from './components/MainTitle'
+    import Login from './components/Login'
+    const backgroundColor = {
+        '0': 'green',
+        '1024': 'red',
+        '1280': 'blue',
+        '1366': 'yellow',
+        '1440': 'green',
+        '1680': 'black',
+        '1920': 'red'
+    }
     export default {
         name: 'app',
         data: function () {
             return {
                 username: null,
-                passworld: null
+                passworld: null,
+                count: 0
+            }
+        },
+        beforeCreate: function () {
+            this.$store.dispatch('user/getLogined')
+        },
+        computed: {
+            appColor: function () {
+                return backgroundColor[this.width]
+            },
+            width: function () {
+                return this.$store.state.main.width || ''
+            },
+            logining: function () {
+                return this.$store.state.user.logining
+            }
+        },
+        mounted: function () {
+            console.log(1111)
+            const that = this
+            this.$store.commit('main/setWidth', window.getComputedStyle(that.$el, ':before').content.replace(/"/g, ''))
+            window.onresize = e => {
+                this.$store.commit('main/setWidth', window.getComputedStyle(that.$el, ':before').content.replace(/"/g, ''))
             }
         },
         methods: {
             submit: function () {
-                this
-                .$http({
-                    method: 'post',
-                    url: '/api/register',
-                    data: {
-                        firstName: this.username,
-                        lastName: this.passworld
-                    }
-                })
-                .then(e => {
-                    console.log(e)
-
-                })
+                this.$store.dispatch('user/register', {username: this.username, passworld: this.passworld})
+            },
+            getUser: function () {
+                this.$store.dispatch('user/getLogined')
+            },
+            logout: function () {
+                this.$store.dispatch('user/logout')
             }
+        },
+        components: {
+            MainTitle,
+            Login
         }
     }
 </script>
@@ -42,12 +71,11 @@
         position: absolute;
         height: 100%;
         width: 100%;
-        background-color: blue;
     } //屏幕宽度1024  1280  1366  1440  1680  1920
     #app::before {
-        content: "0"
+        content: "0";
+        display: none;
     }
-
     @media screen and (min-width: 1024px) {
         #app::before {
             content: "1024"

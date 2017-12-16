@@ -1,10 +1,13 @@
 const state = {
-    main: 0
+    width: null,
+    height: null,
 }
 
 const mutations = {
-    register: function (state, data) {
-        console.log(state, data)
+    setWidth: function (state, data) {
+        if (state.width !== data) {
+            state.width = data
+        }
     }
 }
 
@@ -20,5 +23,6 @@ const actions = {
 export default {
     state,
     mutations,
-    actions
+    actions,
+    namespaced: true
 }
