@@ -1,52 +1,24 @@
 <template>
-    <div id="app" :style="{backgroundColor: appColor}">
+    <div id="app" class="bgimg">
         <MainTitle />
-        <Login v-if="logining" />
+        <router-view class="rview"/>
+        <Login v-if="logining" style="z-index: 99" />
     </div>
 </template>
 
 <script>
     import MainTitle from './components/MainTitle'
     import Login from './components/Login'
-    const backgroundColor = {
-        '0': 'green',
-        '1024': 'red',
-        '1280': 'blue',
-        '1366': 'yellow',
-        '1440': 'green',
-        '1680': 'black',
-        '1920': 'red'
-    }
+    
     export default {
         name: 'app',
-        data: function () {
-            return {
-                passworld: null,
-                count: 0
-            }
-        },
         beforeCreate: function () {
             this.$store.dispatch('user/getLogined')
         },
         computed: {
-            appColor: function () {
-                return backgroundColor[this.width]
-            },
-            width: function () {
-                return this.$store.state.main.width || ''
-            },
             logining: function () {
                 return this.$store.state.user.logining
             }
-        },
-        mounted: function () {
-            const that = this
-            this.$store.commit('main/setWidth', window.getComputedStyle(that.$el, ':before').content.replace(/"/g, ''))
-            window.onresize = e => {
-                this.$store.commit('main/setWidth', window.getComputedStyle(that.$el, ':before').content.replace(/"/g, ''))
-            }
-        },
-        methods: {
         },
         components: {
             MainTitle,
@@ -56,48 +28,171 @@
 </script>
 
 <style lang="less">
-    #app {
+    #app {//屏幕宽度1024  1280  1366  1440  1680  1920
         position: absolute;
+        font-size: 18px;
         height: 100%;
         width: 100%;
-    } //屏幕宽度1024  1280  1366  1440  1680  1920
-    #app::before {
-        content: "0";
-        display: none;
-    }
-    @media screen and (min-width: 1024px) {
-        #app::before {
-            content: "1024"
+        background-repeat: no-repeat;
+        background-position: center;
+
+        .rview {
+            position: absolute;
+            top: 3em;
+            width: 100%;
+            bottom: 0;
         }
     }
 
-    @media screen and (min-width: 1280px) {
-        #app::before {
-            content: "1280"
+    @media screen and (max-width: 768px) and (min-aspect-ratio: 4103 / 2744) {
+        #app {
+            font-size: 20px;
+        }
+        #app.bgimg {
+            background-image: url('./assets/768.jpg')
         }
     }
 
-    @media screen and (min-width: 1366px) {
-        #app::before {
-            content: "1366"
+    @media screen and (max-width: 768px) and (max-aspect-ratio: 4103 / 2744) {
+        #app {
+            font-size: 20px;
+        }
+        #app.bgimg {
+            background-image: url('./assets/768-.jpg')
         }
     }
 
-    @media screen and (min-width: 1440px) {
-        #app::before {
-            content: "1440"
+    @media screen and (max-width: 414px) {
+        #app {
+            font-size: 18px;
         }
     }
 
-    @media screen and (min-width: 1680px) {
-        #app::before {
-            content: "1680"
+    @media screen and (min-width: 768px) and (min-aspect-ratio: 4103 / 2744) {
+        #app {
+            font-size: 22px;
+        }
+        #app.bgimg {
+            background-image: url('./assets/1024.jpg')
         }
     }
 
-    @media screen and (min-width: 1920px) {
-        #app::before {
-            content: "1920"
+    @media screen and (min-width: 1024px) and (min-aspect-ratio: 4103 / 2744) {
+        #app {
+            font-size: 24px;
+        }
+        #app.bgimg {
+            background-image: url('./assets/1280.jpg')
+        }
+    }
+
+    @media screen and (min-width: 1280px) and (min-aspect-ratio: 4103 / 2744) {
+        #app {
+            font-size: 25px;
+        }
+        #app.bgimg {
+            background-image: url('./assets/1366.jpg')
+        }
+    }
+
+    @media screen and (min-width: 1366px) and (min-aspect-ratio: 4103 / 2744) {
+        #app {
+            font-size: 27px;
+        }
+        #app.bgimg {
+            background-image: url('./assets/1440.jpg')
+        }
+    }
+
+    @media screen and (min-width: 1440px) and (min-aspect-ratio: 4103 / 2744) {
+        #app {
+            font-size: 28px;
+        }
+        #app.bgimg {
+            background-image: url('./assets/1680.jpg')
+        }
+    }
+
+    @media screen and (min-width: 1680px) and (min-aspect-ratio: 4103 / 2744) {
+        #app {
+            font-size: 29px;
+        }
+        #app.bgimg {
+            background-image: url('./assets/1920.jpg')
+        }
+    }
+
+    @media screen and (min-width: 1920px) and (min-aspect-ratio: 4103 / 2744) {
+        #app {
+            font-size: 30px;
+        }
+        #app.bgimg {
+            background-image: url('./assets/1920.jpg')
+        }
+    }
+
+    ///////////////////////////////////////////////////////////////////
+
+    @media screen and (min-width: 768px) and (max-aspect-ratio: 4103 / 2744) {
+        #app {
+            font-size: 22px;
+        }
+        #app.bgimg {
+            background-image: url('./assets/1024-.jpg')
+        }
+    }
+
+    @media screen and (min-width: 1024px) and (max-aspect-ratio: 4103 / 2744) {
+        #app {
+            font-size: 24px;
+        }
+        #app.bgimg {
+            background-image: url('./assets/1280-.jpg')
+        }
+    }
+
+    @media screen and (min-width: 1280px) and (max-aspect-ratio: 4103 / 2744) {
+        #app {
+            font-size: 25px;
+        }
+        #app.bgimg {
+            background-image: url('./assets/1366-.jpg')
+        }
+    }
+
+    @media screen and (min-width: 1366px) and (max-aspect-ratio: 4103 / 2744) {
+        #app {
+            font-size: 27px;
+        }
+        #app.bgimg {
+            background-image: url('./assets/1440-.jpg')
+        }
+    }
+
+    @media screen and (min-width: 1440px) and (max-aspect-ratio: 4103 / 2744) {
+        #app {
+            font-size: 28px;
+        }
+        #app.bgimg {
+            background-image: url('./assets/1680-.jpg')
+        }
+    }
+
+    @media screen and (min-width: 1680px) and (max-aspect-ratio: 4103 / 2744) {
+        #app {
+            font-size: 29px;
+        }
+        #app.bgimg {
+            background-image: url('./assets/1920-.jpg')
+        }
+    }
+
+    @media screen and (min-width: 1920px) and (max-aspect-ratio: 4103 / 2744) {
+        #app {
+            font-size: 30px;
+        }
+        #app.bgimg {
+            background-image: url('./assets/1920-.jpg')
         }
     }
 </style>

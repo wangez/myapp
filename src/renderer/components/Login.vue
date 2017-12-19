@@ -2,7 +2,7 @@
     <div id="login">
         <div class="login-warper">
             <div class="login-bottom" @click="close"></div>
-            <div class="login-container" :class="[{largeScreen: largeScreen}, {moreLargeScreen: moreLargeScreen}]">
+            <div class="login-container" >
                 <div class="login-title">
                     <h2>登陆</h2><div class="login-close" @click="close" @touchstart="close"></div>
                 </div>
@@ -75,14 +75,6 @@
                 isWithLogin: true
             }
         },
-        computed: {
-            largeScreen: function () {
-                return this.$store.state.main.width >= 1024
-            },
-            moreLargeScreen: function () {
-                return this.$store.state.main.width >= 1680
-            }
-        },
         methods: {
             close: function () {
                 this.$store.commit('user/changeLogining')
@@ -110,8 +102,10 @@
 </script>
 
 <style lang="less">
+
     #login {
         position: absolute;
+        top: 0;
         height: 100%;
         width: 100%;
         overflow: hidden;
@@ -121,27 +115,8 @@
             height: 100%;
             width: 100%;
             overflow: auto;
-            .moreLargeScreen.login-container.largeScreen {
-                width: 1600px;
-                margin: 40px auto 0;
-            }
-            .login-container.largeScreen {
-                overflow: auto;
 
-                .login-form {
-                    position: relative;
-                    width: 40%;
-                }
-
-                .login-form.left {
-                    float: left;
-                    left: 5%;
-                }
-                .login-form.right {
-                    float: right;
-                    right: 5%;
-                }
-            }
+            
             .login-container {
                 position: relative;
                 margin: 40px 40px 0 40px;
@@ -254,6 +229,34 @@
             width: 100%;
             background-color: #333;
             opacity: 0.2;
+        }
+    }
+
+    
+    @media screen and (min-width: 1024px) {
+        #login .login-warper .login-container {
+            overflow: auto;
+
+            .login-form {
+                position: relative;
+                width: 40%;
+            }
+
+            .login-form.left {
+                float: left;
+                left: 5%;
+            }
+            .login-form.right {
+                float: right;
+                right: 5%;
+            }
+        }
+    }
+
+    @media screen and (min-width: 1280px) {
+        #login .login-warper .login-container {
+            width: 1200px;
+            margin: 40px auto 0;
         }
     }
 </style>

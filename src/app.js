@@ -33,12 +33,17 @@ app.use(session({
 // 设置静态资源，由于webpack打包时，写入html中的文件引用必须带有public，
 // 所以必须为静态资源目录指定一个挂载路径
 app.use('/public', express.static('public'));
+app.use('/imgs', express.static('public/imgs'));
 
 app.get('/', (req, res) => {
     res.sendFile(path.resolve('./views/index.html'));
 });
 
 app.use('/api', api)
+
+app.get('/*', (req, res) => {
+    res.sendFile(path.resolve('./views/index.html'));
+})
 
 const server = app.listen(mainServerPort, e => {
     const serverhost = server.address().address;

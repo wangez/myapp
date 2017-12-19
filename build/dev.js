@@ -12,6 +12,7 @@ const options = {
     },
     hot: true,
     host: 'localhost',
+    historyApiFallback: true,
     stats: {
         colors: true
     }

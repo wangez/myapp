@@ -44,6 +44,16 @@ module.exports = {
                 }, {
                     loader: "less-loader"
                 }]
+            },
+            {
+                test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+                use: {
+                    loader: 'url-loader',
+                    query: {
+                        limit: 10000,
+                        name: 'public/[name]--[folder].[ext]'
+                    }
+                }
             }
         ]
     },
