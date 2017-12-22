@@ -115,6 +115,7 @@
             height: 100%;
             width: 100%;
             overflow: auto;
+            background-color: rgba(48, 48, 48, 0.4);
 
             
             .login-container {
@@ -227,8 +228,6 @@
             position: absolute;
             height: 100%;
             width: 100%;
-            background-color: #333;
-            opacity: 0.2;
         }
     }
 

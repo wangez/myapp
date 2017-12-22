@@ -1,7 +1,8 @@
 <template>
-    <div id="app" class="bgimg">
+    <div id="app" :class="{showover: logining}">
+        <div class="bgimg appimg"></div>
         <MainTitle />
-        <router-view class="rview"/>
+        <router-view />
         <Login v-if="logining" style="z-index: 99" />
     </div>
 </template>
@@ -28,27 +29,36 @@
 </script>
 
 <style lang="less">
+
     #app {//屏幕宽度1024  1280  1366  1440  1680  1920
-        position: absolute;
+        // position: absolute;
         font-size: 18px;
         height: 100%;
         width: 100%;
-        background-repeat: no-repeat;
-        background-position: center;
+        padding-top: 3em;
+        box-sizing: border-box;
 
-        .rview {
-            position: absolute;
+        .appimg {
+            position: fixed;
             top: 3em;
-            width: 100%;
+            left: 0;
+            right: 0;
             bottom: 0;
+            background-repeat: no-repeat;
+            background-position: center;
+            z-index: -1;
         }
+    }
+
+    .showover {
+        overflow: hidden;
     }
 
     @media screen and (max-width: 768px) and (min-aspect-ratio: 4103 / 2744) {
         #app {
             font-size: 20px;
         }
-        #app.bgimg {
+        .bgimg {
             background-image: url('./assets/768.jpg')
         }
     }
@@ -57,7 +67,7 @@
         #app {
             font-size: 20px;
         }
-        #app.bgimg {
+        .bgimg {
             background-image: url('./assets/768-.jpg')
         }
     }
@@ -72,7 +82,7 @@
         #app {
             font-size: 22px;
         }
-        #app.bgimg {
+        .bgimg {
             background-image: url('./assets/1024.jpg')
         }
     }
@@ -81,7 +91,7 @@
         #app {
             font-size: 24px;
         }
-        #app.bgimg {
+        .bgimg {
             background-image: url('./assets/1280.jpg')
         }
     }
@@ -90,7 +100,7 @@
         #app {
             font-size: 25px;
         }
-        #app.bgimg {
+        .bgimg {
             background-image: url('./assets/1366.jpg')
         }
     }
@@ -99,7 +109,7 @@
         #app {
             font-size: 27px;
         }
-        #app.bgimg {
+        .bgimg {
             background-image: url('./assets/1440.jpg')
         }
     }
@@ -108,7 +118,7 @@
         #app {
             font-size: 28px;
         }
-        #app.bgimg {
+        .bgimg {
             background-image: url('./assets/1680.jpg')
         }
     }
@@ -117,7 +127,7 @@
         #app {
             font-size: 29px;
         }
-        #app.bgimg {
+        .bgimg {
             background-image: url('./assets/1920.jpg')
         }
     }
@@ -126,7 +136,7 @@
         #app {
             font-size: 30px;
         }
-        #app.bgimg {
+        .bgimg {
             background-image: url('./assets/1920.jpg')
         }
     }
@@ -137,7 +147,7 @@
         #app {
             font-size: 22px;
         }
-        #app.bgimg {
+        .bgimg {
             background-image: url('./assets/1024-.jpg')
         }
     }
@@ -146,7 +156,7 @@
         #app {
             font-size: 24px;
         }
-        #app.bgimg {
+        .bgimg {
             background-image: url('./assets/1280-.jpg')
         }
     }
@@ -155,7 +165,7 @@
         #app {
             font-size: 25px;
         }
-        #app.bgimg {
+        .bgimg {
             background-image: url('./assets/1366-.jpg')
         }
     }
@@ -164,7 +174,7 @@
         #app {
             font-size: 27px;
         }
-        #app.bgimg {
+        .bgimg {
             background-image: url('./assets/1440-.jpg')
         }
     }
@@ -173,7 +183,7 @@
         #app {
             font-size: 28px;
         }
-        #app.bgimg {
+        .bgimg {
             background-image: url('./assets/1680-.jpg')
         }
     }
@@ -182,7 +192,7 @@
         #app {
             font-size: 29px;
         }
-        #app.bgimg {
+        .bgimg {
             background-image: url('./assets/1920-.jpg')
         }
     }
@@ -191,7 +201,7 @@
         #app {
             font-size: 30px;
         }
-        #app.bgimg {
+        .bgimg {
             background-image: url('./assets/1920-.jpg')
         }
     }

@@ -43,11 +43,18 @@
 
 <style lang="less">
     #nav {
+        position: fixed;
+        top: 0;
+        width: 100%;
         height: 2em;
         line-height: 2em;
         font-size: 1.5em;
-        background-color: rgba(200, 200, 200, 0.4);
+        background-color: #fffafa;
+        box-sizing: border-box;
+        border: 0 solid #666;
+        border-bottom-width: 1px;
         color: #3385ff;
+        z-index: 99;
         nav {
             padding: 0 2em 0 2em;
             height: 2em;

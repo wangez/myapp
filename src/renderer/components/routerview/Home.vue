@@ -1,122 +1,177 @@
 <template>
     <div>
-        <canvas id="cvs" ref="cvs"></canvas>
+        <div id="canvas-warper">
+            <canvas id="cvs" ref="cvs"></canvas>
+        </div>
+        <main>
+            <div class="swaper" ref="swaper">
+                <div v-for="item in contents" class="sub">
+                    <div v-for="text in item">{{ text }}</div>
+                </div>
+                <div class="sub sub1">
+                    <div v-for="text in contents[0]">{{ text }}</div>
+                </div>
+            </div>
+        </main>
     </div>
 </template>
 
 <script>
+    import PicShow from '../classes/pic-show'
     export default {
-        title: '主页',
         name: 'home',
-        data () {
+        title: '主页',
+        data: function () {
             return {
-                ctx: null,
-                items: [],
-                width: null,
-                height: null
+                timeflg: null,
+                lastleft: 0,
+                showTime: 4,
+                translateTime: 1,
+                totalTime: null,
+                animaHandle: null,
+                pic: null,
+                contents: [
+                    [
+                        '测试1',
+                        'welcome'
+                    ],
+                    [
+                        '测试2',
+                        'welcome'
+                    ],
+                    [
+                        '测试3',
+                        'welcome',
+                        '测试',
+                        'welcome',
+                        'welcome',
+                        '测试',
+                        'welcome',
+                        'welcome',
+                        '测试',
+                        'welcome',
+                        'welcome',
+                        '测试',
+                        'welcome',
+                        'welcome',
+                        '测试',
+                        'welcome',
+                        'welcome',
+                        '测试',
+                        'welcome',
+                        'welcome',
+                        '测试',
+                        'welcome',
+                        'welcome',
+                        '测试',
+                        'welcome',
+                        'welcome',
+                        '测试',
+                        'welcome',
+                        'welcome',
+                        '测试',
+                        'welcome'
+                    ]
+                ]
             }
         },
         mounted () {
+            this.showTime *= 1000
+            this.translateTime *= 1000
+            this.totalTime = this.showTime + this.translateTime
+            this.timeflg = new Date().getTime()
+            this.$refs.swaper.style.left = 0
+            this.update()
+            
             const img = new Image()
-            console.log(window.getComputedStyle(document.querySelector("#app")).backgroundImage.replace(/^url\(\"(.*)\"\)/, '$1'))
-            img.src = window.getComputedStyle(document.querySelector("#app")).backgroundImage.replace(/^url\(\"(.*)\"\)/, '$1')
-            img.onload = e => this.anima(e.target)
+            img.src = window.getComputedStyle(document.querySelector(".bgimg")).backgroundImage.replace(
+                /^url\(\"(.*)\"\)/, '$1')
+            img.onload = e => {
+                this.pic = new PicShow(this.$refs.cvs, e.target)
+                this.pic.animation()
+            }
+        },
+        beforeDestroy () {
+            cancelAnimationFrame(this.animaHandle)
+            this.pic.distroy()
         },
         methods: {
-            anima (img) {
-                const win = document.querySelector('#app')
-                const {width: wwidth, height: wheight} = win.getBoundingClientRect()
-                const cvs = this.$refs.cvs
-                const {width, height} = cvs.getBoundingClientRect()
-                const {width: iwidth, height: iheight} = img
-                const y = Math.floor((iheight + wheight) / 2 - height)
-                const x = Math.floor((iwidth - wwidth) / 2)
-                cvs.width = width
-                cvs.height = height
-                this.ctx = cvs.getContext('2d')
-                const numx = 57
-                const numy = 30
-                const stepx = width / numx
-                const stepy = height / numy
-                this.width = width
-                this.height = height
-                const time = 5
-                const zs = time * 60
-                for (let i = 0; i < numy; i ++) {
-                    for (let j = 0; j < numx; j++) {
-                        const pos = Math.random()
-                        if (pos < 0.25) {
-                            this.items.push({
-                                data: [img, x + stepx * j, y + stepy * i, stepx, stepy, stepx * j, 0, stepx, stepy],
-                                speed: stepy * i / zs * (Math.random() + 1),
-                                end: stepy * i,
-                                moving: true,
-                                index: 6
-                            })
-                        } else if (pos < 0.5) {
-                            this.items.push({
-                                data: [img, x + stepx * j, y + stepy * i, stepx, stepy, stepx * j, height, stepx, stepy],
-                                speed: (stepy * i - height) / zs * (Math.random() + 1),
-                                end: stepy * i,
-                                moving: true,
-                                index: 6
-                            })
-                        } else if (pos < 0.75) {
-                            this.items.push({
-                                data: [img, x + stepx * j, y + stepy * i, stepx, stepy, 0, stepy * i, stepx, stepy],
-                                speed: stepx * j / zs * (Math.random() + 1),
-                                end: stepx * j,
-                                moving: true,
-                                index: 5
-                            })
-                        } else {
-                            this.items.push({
-                                data: [img, x + stepx * j, y + stepy * i, stepx, stepy, width, stepy * i, stepx, stepy],
-                                speed: (stepx * j - width) / zs * (Math.random() + 1),
-                                end: stepx * j,
-                                moving: true,
-                                index: 5
-                            })
-                        }
-                        
-                    }
+            update () {
+                this.animaHandle = requestAnimationFrame(e => this.update())
+                const time = new Date().getTime() - this.timeflg
+                const page = - Math.floor(time / this.totalTime) % 3 * 100
+                const sw = time % this.totalTime - this.showTime
+                if (page !== this.lastleft) {
+                    this.lastleft = page
+                    this.$refs.swaper.style.left = this.lastleft + '%'
                 }
-                this.animation()
-            },
-            animation () {
-                this.ctx.clearRect(0, 0, this.width, this.height)
-                let moving = false
-                this.items.forEach(item => {
-                    if (!item.moving) {
-                        this.ctx.drawImage.apply(this.ctx, item.data)
-                    }
-                })
-                this.items.forEach(item => {
-                    const {speed, data, index, end} = item
-                    if (item.moving) {
-                        data[index] += speed
-                        if ((end - data[index]) * speed < 0) {
-                            data[index] = end
-                            item.moving = false
-                        } else {
-                            moving = true
-                        }
-                        this.ctx.drawImage.apply(this.ctx, item.data)
-                    }
-                })
-                if (moving) {
-                    requestAnimationFrame(() => this.animation())
-                }
+                if (sw < 0) return
+                this.$refs.swaper.style.left = (this.lastleft - sw / 10) + '%'
             }
         }
     }
 </script>
 
 <style lang="less">
-    #cvs {
-        position: absolute;
-        height: 100%;
+    #canvas-warper {
+        position: fixed;
         width: 100%;
-        background-color: #ddd;
+        height: 100%;
+        top: 3em;
+        left: 0;
+        z-index: -1;
+
+        #cvs {
+            position: absolute;
+            height: 100%;
+            width: 100%;
+        }
+    }
+    main {
+        position: relative;
+        margin: 2em;
+        overflow-x: hidden;
+        background-color: rgba(200, 200, 200, 0.4);
+        .swaper {
+            position: relative;
+            top: 0;
+            left: 0;
+            width: 400%;
+            .sub {
+                text-align: center;
+                display: inline;
+                float: left;
+                width: 25%;
+                height: 100%;
+            }
+        }
+    }
+    
+    
+    @media screen and (min-width: 1024px) {
+        #login .login-warper .login-container {
+            overflow: auto;
+
+            .login-form {
+                position: relative;
+                width: 40%;
+            }
+
+            .login-form.left {
+                float: left;
+                left: 5%;
+            }
+            .login-form.right {
+                float: right;
+                right: 5%;
+            }
+        }
+    }
+
+    @media screen and (min-width: 1280px) {
+        #login .login-warper .login-container {
+            width: 1200px;
+            margin: 40px auto 0;
+        }
     }
 </style>
