@@ -19,11 +19,6 @@
 <script>
     export default {
         name: 'MainTitle',
-        // data: function () {
-        //     return {
-        //         routes
-        //     }
-        // },
         computed: {
             username: function () {
                 return this.$store.state.user.username

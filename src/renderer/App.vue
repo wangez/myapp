@@ -9,7 +9,6 @@
 
 <script>
     import MainTitle from './components/MainTitle'
-    import Login from './components/Login'
     
     export default {
         name: 'app',
@@ -22,8 +21,7 @@
             }
         },
         components: {
-            MainTitle,
-            Login
+            MainTitle
         }
     }
 </script>

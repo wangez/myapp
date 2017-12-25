@@ -46,7 +46,7 @@ module.exports = {
                 use: {
                     loader: 'url-loader',
                     query: {
-                        limit: 10000,
+                        limit: 1,
                         name: 'public/imgs/[name]--[folder].[ext]'
                     }
                 }
