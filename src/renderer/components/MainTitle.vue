@@ -2,7 +2,8 @@
     <div id="nav">
         <nav>
             <div class="bjcontainer" id="mid">
-                <router-link class="nav-btn" v-for="route in routes" :to="{name: route.name}" :key="route.name">{{route.title}}</router-link>
+                <router-link class="nav-btn" :to="{name: 'home'}">首页</router-link>
+                <router-link class="nav-btn" :to="{name: 'show'}">展示</router-link>
             </div>
             <div class="bjcontainer" id="left">
                 {{username || 'welcome'}}
@@ -16,14 +17,13 @@
 </template>
 
 <script>
-    import routes from './routerview'
     export default {
         name: 'MainTitle',
-        data: function () {
-            return {
-                routes
-            }
-        },
+        // data: function () {
+        //     return {
+        //         routes
+        //     }
+        // },
         computed: {
             username: function () {
                 return this.$store.state.user.username

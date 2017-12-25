@@ -4,12 +4,7 @@ const state = {
 
 const mutations = {
     setMenu: function (state, data) {
-        console.log(data)
-        for (let j = 0; j < data.length; j++) {
-            if (data[j].index === 2) {
-                const parent = data[j]
-            }
-        }
+        state.menu = data
     }
 }
 

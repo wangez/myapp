@@ -18,6 +18,7 @@
 
 <script>
     import PicShow from '../classes/pic-show'
+    import homeData from './home-data'
     export default {
         name: 'home',
         title: '主页',
@@ -30,49 +31,7 @@
                 totalTime: null,
                 animaHandle: null,
                 pic: null,
-                contents: [
-                    [
-                        '测试1',
-                        'welcome'
-                    ],
-                    [
-                        '测试2',
-                        'welcome'
-                    ],
-                    [
-                        '测试3',
-                        'welcome',
-                        '测试',
-                        'welcome',
-                        'welcome',
-                        '测试',
-                        'welcome',
-                        'welcome',
-                        '测试',
-                        'welcome',
-                        'welcome',
-                        '测试',
-                        'welcome',
-                        'welcome',
-                        '测试',
-                        'welcome',
-                        'welcome',
-                        '测试',
-                        'welcome',
-                        'welcome',
-                        '测试',
-                        'welcome',
-                        'welcome',
-                        '测试',
-                        'welcome',
-                        'welcome',
-                        '测试',
-                        'welcome',
-                        'welcome',
-                        '测试',
-                        'welcome'
-                    ]
-                ]
+                contents: homeData
             }
         },
         mounted () {

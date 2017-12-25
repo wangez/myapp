@@ -1,24 +1,17 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import views from '../components/routerview'
+
+import Home from '../components/routerview/Home'
+const Show = () => import(/* webpackChunkName: "/show" */ '../components/routerview/Show')
 
 Vue.use(Router)
-const routes = []
 
-Object.keys(views).forEach(key => {
-    const view = views[key]
-    routes.push({
-        path: '/' + key,
-        name: view.name ? view.name : key,
-        component: view
-    })
-})
+const routes = [
+    {path: "/Home", name: "home", component: Home},
+    {path: "/Show", name: "show", component: Show},
+    {path: "/", name: "landing-page", component: Home}
 
-routes.push({
-    path: '/',
-    name: 'landing-page',
-    component: require('@/components/routerview/Home').default
-})
+]
 
 export default new Router({
     mode: 'history',

@@ -6,8 +6,9 @@ module.exports = {
     context: path.resolve(__dirname, '../'),
     entry: './src/renderer/index.js',
     output: {
-        path: path.resolve(__dirname, '../public'),
-        filename: 'index-[hash].js'
+        path: path.resolve(__dirname, '../'),
+        filename: 'public/index-[hash].js',
+        chunkFilename: 'public/[name].chunk.js'
     },
     devtool: 'none',
     resolve: {
@@ -21,12 +22,7 @@ module.exports = {
         rules: [{
                 test: /\.vue$/,
                 use: {
-                    loader: 'vue-loader',
-                    options: {
-                        loaders: {
-                            less: 'vue-style-loader!css-loader!less-loader?indentedSyntax=1',
-                        }
-                    }
+                    loader: 'vue-loader'
                 }
             }, {
                 test: /(\.js)$/,

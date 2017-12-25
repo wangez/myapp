@@ -6,8 +6,9 @@ module.exports = {
     context: path.resolve(__dirname, '../'),
     entry: './src/renderer/index.js',
     output: {
-        path: path.resolve(__dirname, '../public'),
-        filename: 'index-[hash].js'
+        path: path.resolve(__dirname, '../'),
+        filename: 'public/index-[hash].js',
+        chunkFilename: 'public/[name].chunk.js'
     },
     devtool: 'none',
     resolve: {
@@ -15,18 +16,13 @@ module.exports = {
             '@': path.join(__dirname, '../src/renderer'),
             'vue$': 'vue/dist/vue.esm.js',
         },
-        extensions: ['.js', '.vue', '.json', '.css', '.node']
+        extensions: ['.js', '.vue']
     },
     module: {
         rules: [{
                 test: /\.vue$/,
                 use: {
-                    loader: 'vue-loader',
-                    options: {
-                        loaders: {
-                            less: 'vue-style-loader!css-loader!less-loader?indentedSyntax=1',
-                        }
-                    }
+                    loader: 'vue-loader'
                 }
             }, {
                 test: /(\.js)$/,
@@ -51,7 +47,7 @@ module.exports = {
                     loader: 'url-loader',
                     query: {
                         limit: 10000,
-                        name: 'imgs/[name]--[folder].[ext]'
+                        name: 'public/imgs/[name]--[folder].[ext]'
                     }
                 }
             }
@@ -69,7 +65,7 @@ module.exports = {
             }
         }),
         new HtmlWebpackPlugin({
-            filename: "../views/index.html",
+            filename: "views/index.html",
             template: "./src/renderer/index.html"
         })
     ]
