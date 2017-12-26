@@ -3,7 +3,7 @@ const config = {
         devServerPort: 8080
     },
     main: {
-        mainServerPort: 3389
+        mainServerPort: 80
     }
 }
 

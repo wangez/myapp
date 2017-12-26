@@ -50,7 +50,7 @@
                                     注册并登录
                                 </label>
                             </div>
-                            <button type="submit" @click.prevent="register">登陆</button>
+                            <button type="submit" @click.prevent="register">注册</button>
                         </div>
                     </form>
                 </div>

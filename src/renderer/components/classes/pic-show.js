@@ -10,7 +10,7 @@ class PicShow {
         const stepy = Math.floor(height / numbery)
         // 计算取证后需要添加多少个元素并与设定个数相加，横竖方向元素个数最终数值
         const numx = numberx + Math.ceil((width - stepx * numberx) / stepx)
-        const numy = numbery + Math.ceil((width - stepy * numbery) / stepy)
+        const numy = numbery + Math.ceil((height - stepy * numbery) / stepy)
         // 设置多长时间完成动画效果，默认单位秒，默认帧数60
         const time = 2
         const zs = time * 60

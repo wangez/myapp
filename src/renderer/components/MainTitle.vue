@@ -44,10 +44,8 @@
         height: 2em;
         line-height: 2em;
         font-size: 1.5em;
-        background-color: #fffafa;
-        box-sizing: border-box;
-        border: 0 solid #666;
-        border-bottom-width: 1px;
+        background-color: #fffefa;
+        box-shadow: 0 0 1px rgba(0,0,0,0.25);
         color: #3385ff;
         z-index: 99;
         nav {
