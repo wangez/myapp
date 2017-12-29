@@ -28,11 +28,15 @@
 <style lang="less">
     #show {
         width: 100%;
+        height: 100%;
+        padding-left: 340px;
+        box-sizing: border-box;
         
         #show-menu {
             position: fixed;
             width: 340px;
             top: 3em;
+            left: 0;
             bottom: 0;
             overflow-x: hidden;
             overflow-y: auto;
@@ -47,10 +51,16 @@
                 }
             }
         }
+
+        #show-container {
+            height: 100%;
+        }
     }
+
+
     @media screen and (max-width: 1280px) {
         #show #show-menu {
-            display: none;
+            // display: none;
         }
     }
 </style>
