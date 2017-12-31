@@ -1,6 +1,6 @@
 <template>
     <div id="app" :class="{showover: logining}">
-        <div class="bgimg appimg"></div>
+        <!-- <div class="bgimg appimg"></div> -->
         <MainTitle />
         <router-view />
         <Login v-if="logining" style="z-index: 99" />
