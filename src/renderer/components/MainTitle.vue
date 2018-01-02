@@ -2,8 +2,8 @@
     <div id="nav">
         <nav>
             <div class="bjcontainer" id="mid">
-                <router-link class="nav-btn" :to="{name: 'home'}">首页</router-link>
-                <router-link class="nav-btn" :to="{name: 'show'}">展示</router-link>
+                <router-link class="nav-btn" :to="{name: 'home'}">文章</router-link>
+                <router-link class="nav-btn" :to="{name: 'home'}">游戏</router-link>
             </div>
             <div class="bjcontainer" id="left">
                 {{username || 'welcome'}}
