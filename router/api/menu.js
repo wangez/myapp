@@ -10,10 +10,11 @@ menu.all('/', (req, res) => {
 menu.post('/getMenu', (req, res) => {
     const query = {}
     if (req.body.search) {
-        query.$or = [
-            {title: new RegExp(req.body.search)},
-            {bz: new RegExp(req.body.search)}
-        ]
+        // query.$or = [
+        //     {title: new RegExp(req.body.search)},
+        //     {bz: new RegExp(req.body.search)}
+        // ]
+        query.title = new RegExp(req.body.search)
     }
     menudb.find(query).then(doc => {
         res.json(doc)

@@ -1,9 +1,11 @@
 <template>
     <li class="menu-item">
-        <router-link :to="{path: '/' + data.name}" class="menu-item-head">{{ data.title }}</router-link :to="{path: '/' + 'name'}">
-        <div class="menu-item-time">{{ data.title }}</div>
+        <router-link :to="{path: '/articles/' + data.name}" class="menu-item-head">{{ data.title }}</router-link>
+        <div class="menu-item-time">{{ data.time.toLocaleString() }}</div>
         <div class="menu-item-content">{{ data.bz }}</div>
     </li>
+
+     <!-- target="_blank" -->
 </template>
 
 <script>

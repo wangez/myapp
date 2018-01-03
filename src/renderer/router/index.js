@@ -3,6 +3,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '../components/Home'
 import dyna from './dyna-components'
+import ShowArticles from '../components/ShowArticles'
 
 Vue.use(Router)
 // register global component
@@ -22,6 +23,12 @@ export default new Router({
             props: route => {
                 return {search: undefined}
             }
+        },
+        {
+            path: '/articles/:name',
+            name: 'showArticles',
+            component: ShowArticles,
+            props: true
         }
     ]
 })

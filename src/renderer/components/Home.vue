@@ -1,22 +1,22 @@
 <template>
     <div id="home">
-        <div class="hotcontainer">
-            <Hot />
-        </div>
+        <Hot class="hot" />
         <Articles class="route" :search="search"/>
-        <div class="advert">aba</div>
+        <Advert class="advert"></Advert>
     </div>
 </template>
 
 <script>
     import Hot from './Hot'
     import Articles from './Articles'
+    import Advert from './Advert'
     export default {
         name: 'home',
         props: ['search'],
         components: {
             Hot,
-            Articles
+            Articles,
+            Advert
         }
     }
 </script>
@@ -34,13 +34,13 @@
             display: block;
         }
 
-        .hotcontainer,
+        .hot,
         .advert,
         .route {
             float: left;
         }
 
-        .hotcontainer {
+        .hot {
             display: none;
             width: 200px;
         }
@@ -54,6 +54,9 @@
         .advert {
             display: none;
             width: 300px;
+            font-size: 0.6em;
+            padding: 2em;
+            box-sizing: border-box;
         }
     }
     @media screen and (min-width: 1024px) {
@@ -74,7 +77,7 @@
         #home {
             max-width: 1200px;
 
-            .hotcontainer {
+            .hot {
                 display: block;
             }
 

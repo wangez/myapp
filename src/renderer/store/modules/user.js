@@ -26,8 +26,6 @@ const actions = {
             if (e.data.success) {
                 context.commit('changeLogining')
                 context.commit('setUsername', username)
-            } else {
-                console.log(e.data.msg)
             }
         })
     },
@@ -46,8 +44,6 @@ const actions = {
                     context.commit('setUsername', username)
                 }
                 context.commit('changeLogining')
-            } else {
-                console.log(e.data.msg)
             }
         })
     },

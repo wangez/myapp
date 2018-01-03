@@ -1,7 +1,7 @@
 <template>
     <div>
         <div id="articles">
-            <div v-if="search" id="articles-title">{{'‘' + search + '’的搜索结果' }}</div>
+            <div v-if="search" id="articles-title">{{search}}</div>
             <ul id="articles-list">
                 <MenuItem v-for="item in menu" :key="item.id" :data="item" />
             </ul>
@@ -11,14 +11,21 @@
 
 <script>
     import MenuItem from './MenuItem'
+    import dyna from '../router/dyna-components'
     export default {
         name: 'articles',
-        title: '主页',
         props: ['search'],
         computed: {
             menu () {
-                this.$store.dispatch('menu/getMenu', this.search)
                 return this.$store.state.menu.menu
+            }
+        },
+        mounted () {
+            this.$store.dispatch('menu/getMenu', this.search)
+        },
+        watch: {
+            search () {
+                this.$store.dispatch('menu/getMenu', this.search)
             }
         },
         components: {

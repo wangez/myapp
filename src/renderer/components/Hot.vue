@@ -1,8 +1,8 @@
 <template>
-    <div id="hot">
+    <div>
         <div class="hot-list">
-            <div>热门标签</div>
-            <router-link class="label" v-for="item in labels" :key="item.text" :to="{path: '/home?search=' + item.text}" :style="{backgroundColor: item.color}">{{ item.text }}</router-link>
+            <div class="title">标签</div>
+            <router-link class="label" v-for="item in labels" :key="item.text" :to="{path: '/home?search=' + item.text}">{{ item.text }}</router-link>
         </div>
         <div class="hot-list"></div>
     </div>
@@ -17,10 +17,11 @@
         data () {
             return {
                 labels: [
-                    {text: 'css', color: 'rgb(' + random() + ', ' + random() + ', ' + random() + ')'},
-                    {text: 'canvas', color: 'rgb(' + random() + ', ' + random() + ', ' + random() + ')'},
-                    {text: 'chart', color: 'rgb(' + random() + ', ' + random() + ', ' + random() + ')'},
-                    {text: '3d', color: 'rgb(' + random() + ', ' + random() + ', ' + random() + ')'},
+                    {text: 'js'},
+                    {text: 'css'},
+                    {text: 'canvas'},
+                    {text: 'chart'},
+                    {text: '3d'},
                 ],
                 game: []
             }
@@ -36,7 +37,8 @@
 <style lang="less">
     .hot-list {
         color: #3385ff;
-        padding: 1em;
+        padding: 10px;
+        width: 180px;
 
         & {
             overflow: hidden;
@@ -46,18 +48,33 @@
             margin-top: 1em;
         }
 
+        .title {
+            width: 170px;
+            font-size: 0.8em;
+            color: #666;
+            background-color: #ddd;
+            border: 0px solid #bbb;
+            border-left-width: 0.5em;
+            margin-bottom: 0.5em;
+        }
+
         .label {
-            padding: 0 0.5em;
             float: left;
-            font-size: 1em;
-            line-height: 1.4em;
-            margin-right: 1em;
+            width: 80px;
+            text-align: center;
+            font-size: 0.6em;
+            line-height: 1.8em;
             text-decoration: none;
-            color: #fff;
             border-radius: 2px;
+            box-sizing: border-box;
+            border: 1px solid #666;
+            color: #666;
+            margin: 0 10px 5px 0;
         }
         .label:hover {
-            color: #000;
+            color: #ddd;
+            background-color: #0da4d3;
+            border-color: #0da4d3;
         }
     }
 </style>

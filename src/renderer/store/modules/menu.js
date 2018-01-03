@@ -4,7 +4,7 @@ const state = {
 
 const mutations = {
     setMenu: function (state, data) {
-        if (state.menu.length === 0 || JSON.stringify(state.menu) !== JSON.stringify(data)) {
+        if (JSON.stringify(state.menu) !== JSON.stringify(data)) {
             state.menu = data
         }
     }
@@ -12,6 +12,7 @@ const mutations = {
 
 const actions = {
     getMenu (context, search) {
+        console.log(search)
         this.$http({
             method: 'post',
             url: '/api/menu/getMenu',

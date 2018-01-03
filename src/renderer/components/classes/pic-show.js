@@ -8,26 +8,27 @@ class PicShow {
         // 每个元素大小
         const stepx = Math.floor(width / numberx)
         const stepy = Math.floor(height / numbery)
-        // 计算取证后需要添加多少个元素并与设定个数相加，横竖方向元素个数最终数值
+        // 计算取整后需要添加多少个元素并与设定个数相加，横竖方向元素个数最终数值
         const numx = numberx + Math.ceil((width - stepx * numberx) / stepx)
         const numy = numbery + Math.ceil((height - stepy * numbery) / stepy)
+        // 图片每个元素大小
+        const istepx = iwidth / numx
+        const istepy = iheight / numy
         // 设置多长时间完成动画效果，默认单位秒，默认帧数60
         const time = 2
         const zs = time * 60
-        
-        // 图片比canvas大，需要图片居中展示，计算开始展示坐标位置
-        this.y = Math.floor((iheight - height) / 2)  
-        this.x = Math.floor((iwidth - width) / 2)
+
         // 移动速度
         this.speedx = stepx / zs
         this.speedy = stepy / zs
-        this.stepx = stepx
-        this.stepy = stepy
-        this.flag = 0
+        this.ispeedx = istepx / zs
+        this.ispeedy = istepy / zs
         this.zs = zs
+        this.flag = -zs
+        this.change = 1
+        this.stopcount = 60
         // 存储所有元素
         this.movingList = []
-        this.movedList = []
         
         this.width = canvas.width = width
         this.height = canvas.height = height
@@ -37,19 +38,35 @@ class PicShow {
         
         for (let i = 0; i < numy; i++) {
             for (let j = 0; j < numx; j++) {
-                this.movingList.push([stepx * j, stepy * i])
+                this.movingList.push([stepx * j, stepy * i, istepx * j, istepy * i])
             }
         }
     }
     animation () {
-        const {ctx, img, flag, speedx, speedy, x, y, stepx, stepy} = this
-        if (this.flag < this.zs) {
-            this.animahandle = requestAnimationFrame(e => this.animation())
+        this.animahandle = requestAnimationFrame(e => this.animation())
+        const {ctx, img, flag, speedx, speedy, ispeedx, ispeedy} = this
+        ctx.clearRect(0, 0, this.width, this.height)
+        if (flag < 0) {
+            this.movingList.forEach(([endx, endy, iendx, iendy]) => {
+                ctx.drawImage(img, iendx, iendy, - flag * ispeedx, - flag * ispeedy, endx, endy, flag * speedx, flag * speedy)
+            })
+        } else {
+            this.movingList.forEach(([endx, endy, iendx, iendy]) => {
+                ctx.drawImage(img, iendx, iendy, flag * ispeedx, flag * ispeedy, endx, endy, flag * speedx, flag * speedy)
+            })
         }
-        this.movingList.forEach(([endx, endy]) => {
-            ctx.drawImage(img, endx + x, endy + y, stepx, stepy, endx, endy, flag * speedx, flag * speedy)
-        })
-        this.flag ++
+        if ((flag === this.zs || flag === -this.zs) && this.stopcount < 60) {
+            this.stopcount ++
+            return
+        } else {
+            this.stopcount = 0
+        }
+        if (this.change === 1 && flag >= this.zs) {
+            this.change = -1
+        } else if (this.change === -1 && flag <= - this.zs) {
+            this.change = 1
+        }
+        this.flag += this.change
     }
     distroy () {
         cancelAnimationFrame(this.animahandle)
