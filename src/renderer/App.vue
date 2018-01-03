@@ -1,5 +1,9 @@
 <template>
     <div id="app" :class="{showover: logining}">
+<<<<<<< HEAD
+=======
+        <!-- <div class="bgimg appimg"></div> -->
+>>>>>>> 5b85fa6922ef7d028f1080d7ee772030c596dac4
         <MainTitle />
         <main>
             <router-view />
