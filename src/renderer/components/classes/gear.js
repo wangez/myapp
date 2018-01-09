@@ -2,7 +2,7 @@
  * @Author: wangez 
  * @Date: 2018-01-03 14:09:48 
  * @Last Modified by: wangez
- * @Last Modified time: 2018-01-03 16:43:39
+ * @Last Modified time: 2018-01-09 08:46:42
  *          Angle
  *           -
  *          | |
@@ -61,8 +61,6 @@ class Gear {
             ctx.lineTo(r * cos(a * pi) + x, r * sin(a * pi) + y)
             ctx.lineTo(R * cos((a + disAngle) * pi) + x, R * sin((a + disAngle) * pi) + y)
             ctx.lineTo(R * cos((a + disAngle + Angle) * pi) + x, R * sin((a + disAngle + Angle) * pi) + y)
-            // ctx.lineTo(R * cos(a * pi) + x, R * sin(a * pi) + y)
-            // ctx.lineTo(R * cos((a + angle) * pi) + x, R * sin((a + angle) * pi) + y)
             ctx.lineTo(r * cos((a + angle) * pi) + x, r * sin((a + angle) * pi) + y)
         }
         ctx.closePath()//closePath使第一个点与最后一个点连接

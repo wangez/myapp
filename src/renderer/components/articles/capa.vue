@@ -8,8 +8,7 @@
     import PicShow from '../classes/pic-show'
     import bk from '../../assets/bk.jpg'
     export default {
-        name: 'home',
-        title: '主页',
+        name: 'capa',
         data: function () {
             return {
             }
