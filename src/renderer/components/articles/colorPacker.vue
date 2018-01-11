@@ -1,5 +1,6 @@
 <template>
     <div id="canvas-warper">
+        <div>部分浏览器不兼容</div>
         <div>鼠标滚轮调节色相</div>
         <div>ctrl + 鼠标滚轮调节饱和度</div>
         <div>shift + 鼠标滚轮调节明度</div>

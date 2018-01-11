@@ -226,7 +226,6 @@
                 return 1 - this.posy / 247
             },
             l () {
-                console.log(this.rangepos)
                 return 1 - (this.rangepos + 7) / 247
             }
         }
