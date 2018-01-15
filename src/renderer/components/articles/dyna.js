@@ -10,3 +10,4 @@ Vue.component('cssradar', () => import ( /* webpackChunkName: "/cssradar" */ './
 Vue.component('threescroll', () => import ( /* webpackChunkName: "/threescroll" */ './threescroll'))
 Vue.component('canvasradar', () => import ( /* webpackChunkName: "/canvasradar" */ './canvasradar'))
 Vue.component('starts', () => import ( /* webpackChunkName: "/starts" */ './starts'))
+Vue.component('super3D', () => import ( /* webpackChunkName: "/super3D" */ './super3D'))
