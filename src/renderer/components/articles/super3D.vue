@@ -1,12 +1,11 @@
 <template>
-    <div class="container" :style="ice" ref="c">
-        <div class="swaper" :style="{transform: 'translate(-50%, -50%) scale(' + scale + ')'}" @click="click">
+    <div class="container" :style="{backgroundImage: 'url(' + pic.superbg + ')'}" ref="c">
+        <div class="swaper" :style="{transform: 'translate(-50%, -50%) scale(' + scale + ')'}">
             <div v-for="i in 10" 
-                v-show="i === active || r1 || r2 || l1 || l2"
-                :id="'s' + (i - 1)" :key="i"
-                :class="{sub: true, active: active === i - 1, r1: r1 === i - 1, r2: r2 === i - 1, l1: l1 === i - 1, l2: l2 === i - 1}"
-                :style="{backgroundImage: 'url(' + pic['super' + (i - 1)] + ')'}">
-                <div class="frame" :style="{backgroundImage: 'url(' + pic.head + ')'}" @click="e => click(i - 1)"></div>
+                :key="i"
+                :class="['sub', classList[showList.indexOf(i)]]"
+                :style="{backgroundImage: 'url(' + pic['super' + i] + ')'}">
+                <div class="frame" :style="{backgroundImage: 'url(' + pic.head + ')'}" @click="e => click(i)"></div>
             </div>
         </div>
     </div>
@@ -14,49 +13,38 @@
 
 <script>
     import pic from '../../assets'
-    console.log(pic)
     export default {
         name: 'super3d',
         data: function () {
             return {
-               ice: {backgroundImage: 'url(' + pic.superbg + ')'},
                pic,
-               active: 0,
-               scale: 1
+               active: 1,
+               scale: 1,
+               classList: ['l2', 'l1', 'active', 'r1', 'r2']
             }
         },
         computed: {
-            r1 () {
-                return (this.active + 9) % 10
-            },
-            r2 () {
-                return (this.active + 8) % 10
-            },
-            l1 () {
-                return (this.active + 1) % 10
-            },
-            l2 () {
-                return (this.active + 2) % 10
+            showList () {
+                return [(this.active + 1) % 10 + 1, (this.active) % 10 + 1, this.active, (this.active + 8) % 10 + 1, (this.active + 7) % 10 + 1]
             }
+        },
+        beforeDestroy () {
+            this.destroy() // 删除绑定的window resize事件
         },
         mounted() {
             const {width} = this.$refs.c.getBoundingClientRect()
             this.scale = width / 1920
-            window.addEventListener('resize', this.resize.bind(this))
+            const fun = this.resize.bind(this)
+            window.addEventListener('resize', fun)
+            this.destroy = e => window.removeEventListener('resize', fun)
         },
         methods: {
             resize () {
                 const {width} = this.$refs.c.getBoundingClientRect()
-                console.log(1)
                 this.scale = width / 1920
             },
             click (e) {
-                console.log(e)
-                if (e === this.l1 || e === this.l2) {
-                    this.active = this.l1
-                } else if (e === this.r1 || e === this.r2) {
-                    this.active = this.r1
-                } 
+                this.active = e
             }
         }
     }

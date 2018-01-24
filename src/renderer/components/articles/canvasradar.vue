@@ -67,36 +67,40 @@
 
                 const nowTime = new Date().getTime()
                 const time = (nowTime - beginTime) % total
+                if (time < this.lastTime) {
+                    console.log('update points')
+                    this.points.forEach(e => e.flashed = false)
+                }
                 const angle = time / this.total * 2 * Math.PI
 
+                // 覆盖透明色，实现扫描区域淡出效果
                 pointerCTX.beginPath()
                 pointerCTX.arc(pos, pos, r, 0, Math.PI * 2)
                 pointerCTX.fillStyle = 'rgba(150, 255, 150, 0.01)'
                 pointerCTX.fill()
 
+                // 绘制点
                 pointsCTX.clearRect(0, 0, pos * 2, pos * 2)
                 this.points.forEach(e => {
-                    if (nowTime - e.time > total) {
-                        if (time - e.delay >= 0 && e.alpha === 0) {
-                            e.alpha = 1
-                        }
-                        if (e.alpha > 0) {
-                            pointsCTX.globalAlpha = e.alpha
-                            pointsCTX.drawImage(image, e.x - 5, e.y - 5, 10, 10)
-                            e.alpha -= 0.01
-                            if (e.alpha < 0) {
-                                e.alpha = 0
-                            }
-                        }
+                    if (time > e.delay && !e.flashed) {
+                        e.alpha = 1
+                        e.flashed = true
+                    }
+                    if (e.alpha > 0) {
+                        pointsCTX.globalAlpha = e.alpha
+                        pointsCTX.drawImage(image, e.x - 5, e.y - 5, 10, 10)
+                        e.alpha -= 0.01
                     }
                 })
-
-                pointerCTX.strokeStyle = '#32a10d'
-                pointerCTX.lineWidth = 4
+                // 扫描线，画一个扇形区域实现扫描效果，绘制过的区域会逐渐被填充的透明色覆盖，实现轨迹淡出效果
+                pointerCTX.fillStyle = '#32a10d'
                 pointerCTX.beginPath()
                 pointerCTX.moveTo(pos, pos)
-                pointerCTX.lineTo(pos + Math.cos(angle) * r, pos + Math.sin(angle) * r)
-                pointerCTX.stroke()
+                pointerCTX.arc(pos, pos, r, angle, angle + Math.PI * 0.03)
+                pointerCTX.closePath()
+                pointerCTX.fill()
+
+                this.lastTime = time
             },
             anima () {
                 this.handle = requestAnimationFrame(e => this.anima())
@@ -108,7 +112,7 @@
                 const angle = (Math.atan2(y - pos, x - pos) / Math.PI * 180 + 360) % 360
                 const dis = Math.sqrt(Math.pow(x - pos, 2) + Math.pow(y - pos, 2))
                 const delay = angle / 360 * total
-                this.points.push({x, y, time: new Date().getTime(), angle, dis, delay, alpha: 0})
+                this.points.push({x, y, angle, dis, delay, alpha: 0, flashed: true})
             }
         },
         beforeDestroy () {
