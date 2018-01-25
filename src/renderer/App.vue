@@ -33,7 +33,7 @@
     #app {//屏幕宽度1024  1280  1366  1440  1680  1920
         // position: relative;
         font-size: 16px;
-        height: 100%;
+        // height: 100%;
         width: 100%;
         padding-top: 3em;
         box-sizing: border-box;
